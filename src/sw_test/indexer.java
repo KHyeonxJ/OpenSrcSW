@@ -36,7 +36,7 @@ public class indexer {
 				splitStr[i] = bodylist.get(i).text().split("#");
 			}
 			for (int i = 0; i < splitStr.length; i++) {
-				ArrayList indata = new ArrayList<String>();// ':'을 기준으로 splitg한 값
+				ArrayList indata = new ArrayList<String>();// ':'을 기준으로 split한 값
 				for (int j = 0; j < splitStr[i].length; j++) {
 					indatasave = splitStr[i][j].split(":");
 					indata.add(indatasave[0]);
