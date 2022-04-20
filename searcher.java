@@ -45,7 +45,7 @@ public class searcher {
 		return hashMap;
 	}
 
-	public ArrayList<Double> calcSim() throws ClassNotFoundException, IOException {
+	public ArrayList<Double> Sim() throws ClassNotFoundException, IOException {
 		// kkma
 		KeywordExtractor key = new KeywordExtractor();
 		KeywordList keyL = key.extractKeyword(this.query, true);
@@ -77,7 +77,7 @@ public class searcher {
 	}
 
 	public void rank() throws ClassNotFoundException, IOException {
-		ArrayList<Double> result = calcSim();
+		ArrayList<Double> result = Sim();
 		int[] ranking = { 1, 1, 1, 1, 1 };
 		int cnt = 0;
 		for (int i = 0; i < result.size(); i++) {
