@@ -45,7 +45,7 @@ public class searcher {
 		return hashMap;
 	}
 
-	public ArrayList<Double> Sim() throws ClassNotFoundException, IOException {
+	public ArrayList<Double> calcSim() throws ClassNotFoundException, IOException {
 		// kkma
 		KeywordExtractor key = new KeywordExtractor();
 		KeywordList keyL = key.extractKeyword(this.query, true);
@@ -60,24 +60,37 @@ public class searcher {
 		}
 		HashMap map = getHash();
 		ArrayList<Double> inner_result = new ArrayList<>();
-		double add = 0;
+		double add1 = 0, add2 = 0, Qid = 0;
+		double add_result;
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < wordL.size(); j++) {
 				ArrayList<String> tmp = (ArrayList<String>) map.get(wordL.get(j));// 가중치
 				// System.out.println(tmp);
 				String[] splitTmp = tmp.get(i).split(" ");
-				add += Double.parseDouble(splitTmp[1]) * (wordcnt.get(j));
+				Qid += Double.parseDouble(splitTmp[1]) * (wordcnt.get(j));
+				// add += Double.parseDouble(splitTmp[1]) * (wordcnt.get(j));
 				// (j번째 단어의 문서id i의 가중치)*(query안에 j번째 단어의 횟수) 더한값
+				add1 += Math.sqrt(Math.pow(Double.parseDouble(splitTmp[1]), 2.0));// =|Q|
+				add2 += Math.sqrt(Math.pow(wordcnt.get(j), 2.0));// |id i|
 			}
-			inner_result.add(add);
-			add = 0;
+
+			// inner_result.add(add);
+			add_result = Qid / (add1 * add2);
+			if(Double.isNaN(add_result)) {
+				inner_result.add(0.0);
+			}else {
+				inner_result.add(add_result);
+			}
+			add1 = 0;
+			add2 = 0;
+			Qid = 0;
 		}
 		// System.out.println(inner_result);
 		return inner_result;
 	}
 
 	public void rank() throws ClassNotFoundException, IOException {
-		ArrayList<Double> result = Sim();
+		ArrayList<Double> result = calcSim();
 		int[] ranking = { 1, 1, 1, 1, 1 };
 		int cnt = 0;
 		for (int i = 0; i < result.size(); i++) {
