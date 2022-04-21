@@ -31,6 +31,14 @@ public class kuir {
 				System.out.println("쿼리가 존재하지 않습니다.");
 			}
 		}
+		else if(command.equals("-m")) {
+			String cRoute="./SimpleIR/collection.xml";
+			if(args[2].equals("-q"));{
+				String query=args[3];
+				MidTerm mid=new MidTerm(cRoute, query);
+				mid.showSnippet();
+			}
+		}
 	}
 
 }
