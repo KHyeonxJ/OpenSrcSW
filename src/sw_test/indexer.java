@@ -20,12 +20,15 @@ import org.jsoup.select.Elements;
 
 @SuppressWarnings({ "rawtypes", "unchecked", "nls" })
 public class indexer {
+	String fpath;
 	ArrayList <ArrayList<String>> totaldata=new ArrayList();// 키워드, 빈도수 //ArrayList안에 ArrayList<String>넣기
 	ArrayList <ArrayList<String>> finaldata=new ArrayList();// 키워드, 가중치
-
+	public indexer(String fpath) {
+		this.fpath=fpath;
+	}
 	public void thirdweek() throws ClassNotFoundException {
 		try {
-			File index = new File("C:/Users/user/SimpleIR/index.xml");
+			File index = new File(fpath);
 			org.jsoup.nodes.Document xmlf = Jsoup.parse(index, "UTF-8", "", Parser.xmlParser());
 			Elements bodylist = xmlf.select("body");
 
@@ -56,7 +59,7 @@ public class indexer {
 			HashSet<ArrayList<String>> set=new HashSet<>(finaldata);
 			ArrayList <ArrayList<String>> finalKeyandTF=new ArrayList(set);
 			
-			File map = new File("C:/Users/user/SimpleIR/index.post");
+			File map = new File("./SimpleIR/index.post");
 			FileOutputStream fileStream = new FileOutputStream(map);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileStream);
 
@@ -72,7 +75,7 @@ public class indexer {
 			objectOutputStream.writeObject(htmlMap);
 			objectOutputStream.close();
 			
-			this.printHash("C:/Users/user/SimpleIR/index.post");
+			this.printHash("./SimpleIR/index.post");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -26,7 +26,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class makeCollection {
-
+	String fpath;
+	
+	public makeCollection(String fpath) {
+		this.fpath=fpath;
+	}
 	public static File[] makeFileList(String path) {// 폴더 path안에 있는 파일들을 파일 리스트로 반환
 		File dir = new File(path);
 		return dir.listFiles();
@@ -34,7 +38,7 @@ public class makeCollection {
 
 	public void firstweek() {// html파일 5개를 1개의 xml파일로 만들기
 		try {
-			File files[] = makeFileList("C:/Users/user/SimpleIR/htmltest");
+			File files[] = makeFileList(fpath);
 
 			// doucument생성
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -70,7 +74,7 @@ public class makeCollection {
 			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new FileOutputStream(new File("C:/Users/user/SimpleIR/docs.xml")));
+			StreamResult result = new StreamResult(new FileOutputStream(new File("./SimpleIR/docs.xml")));
 
 			transformer.transform(source, result);
 

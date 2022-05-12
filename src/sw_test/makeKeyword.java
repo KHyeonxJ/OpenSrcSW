@@ -21,9 +21,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class makeKeyword {
+	String fpath;
+	
+	public makeKeyword(String fpath){
+		this.fpath=fpath;
+	}
 	public void secondweek() {// 위 xml 파일을 kkma를 이용해 index.xml만들기
 		try {
-			File collection = new File("C:/Users/user/SimpleIR/docs.xml");
+			File collection = new File(fpath);
 
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
@@ -74,7 +79,7 @@ public class makeKeyword {
 
 				DOMSource source = new DOMSource(doc);
 				StreamResult result = new StreamResult(
-						new FileOutputStream(new File("C:/Users/user/SimpleIR/index.xml")));
+						new FileOutputStream(new File("./SimpleIR/index.xml")));
 
 				transformer.transform(source, result);
 			}
